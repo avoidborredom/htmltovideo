@@ -1,15 +1,19 @@
 <template>
-    <div>
-         <canvas id="canvas" width = "600" height = "300">
-			Your Browser does not support the canvas tag
-        </canvas>
-    </div>
+    <Slide></Slide>
 </template>
 
 <script>
-
+import Slide from "../components/Slide"
 
 export default {
-    
+  name: "home",
+  components: {
+    Slide
+  },
+  mounted() {
+    // this.$store.dispatch(FETCH_TAGS);
+  },
+  computed: {
+  }
 }
 </script>
