@@ -1,13 +1,21 @@
 <template>
-  <el-carousel indicator-position="none" arrow="never" :height="windowHeight - 300 + 'px'" interval="10000">
-    <!-- <el-carousel-item v-for="item in 4" :key="item">
-      <h3>{{ item }}</h3>
-    </el-carousel-item> -->
-    <el-carousel-item>
-      <h3>test</h3>
-    </el-carousel-item>
-    <el-carousel-item>
-      <h3>test</h3>
+  <el-carousel indicator-position="none" arrow="never" :height="windowHeight + 'px'" interval=10000>
+    <el-carousel-item v-for="item in items" :key="item.id">
+      <div class="compare-container">
+          <h3 class="compare-title">
+              {{ item.name }}
+          </h3>
+          
+          <div class="compare-items">             
+            <div class="compare-item">
+                {{ item.phone1 }}
+            </div>
+            <div class="compare-item">
+                {{ item.phone2 }}
+            </div>    
+          </div>
+          
+      </div>
     </el-carousel-item>
   </el-carousel>
 </template>
@@ -18,7 +26,41 @@ export default {
   name: "Slide",
   data() {
       return {
-          windowHeight: 0
+          windowHeight: 0,
+          items: [
+          {
+              id: 1,
+              name: "camera",
+              phone1: "16mp",
+              phone2: "24mp",
+              status: 0,
+              winner: 2
+          },
+          {
+              id: 2,
+              name: "display",
+              phone1: "oled",
+              phone2: "lcd",
+              status: 0,
+              winner: 1
+          },
+          {
+              id: 3,
+              name: "network",
+              phone1: "4g",
+              phone2: "4g",
+              status: 1,
+              winner: 0
+          },
+          {
+              id: 4,
+              name: "cord",
+              phone1: "type c",
+              phone2: "micro usb",
+              status: 2,
+              winner: 0
+          }
+          ]
       }
   },
   components: {
@@ -32,6 +74,7 @@ export default {
       }
   },
   mounted() {
+      console.log(this.items);
     this.$nextTick(() => {
       window.addEventListener('load', () => {
         this.windowHeight = window.innerHeight
