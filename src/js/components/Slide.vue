@@ -61,7 +61,7 @@ export default {
   mounted() {     
     this.$nextTick(() => {
       window.addEventListener('load', () => {
-        this.windowHeight = window.innerHeight - 300
+        this.windowHeight = window.innerHeight - 350
         this.cardHeight = this.windowHeight - 60
       });
     })
@@ -124,7 +124,7 @@ export default {
     display:flex;
     justify-content: center;
     font-size: 19px;
-    background:#ff5714;
+    background:#37b6f6;
     color:#fff;
     font-weight:700;
     border-radius:5px;
