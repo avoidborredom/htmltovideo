@@ -1,19 +1,35 @@
 <template>
-  <el-carousel indicator-position="none" arrow="never" :height="windowHeight + 'px'" interval=10000>
+  <el-carousel indicator-position="none" arrow="never" :height="windowHeight + 'px'" :interval="interval">
     <el-carousel-item v-for="item in items" :key="item.id">
       <div class="compare-container">
           <h3 class="compare-title">
-              {{ item.name }}
+              <el-button circle="true" size="large" :type="button[item.id % button.length]">{{ item.name }}</el-button>
+              
           </h3>
-          
-          <div class="compare-items">             
-            <div class="compare-item">
-                {{ item.phone1 }}
+          <el-row :gutter="20">
+            <div class="compare-status" v-if="item.status">
+                {{ status[item.status] }}
             </div>
-            <div class="compare-item">
-                {{ item.phone2 }}
-            </div>    
-          </div>
+            <el-col :span="12">
+                <el-card class="box-card" v-bind:style="{ height: cardHeight + 'px'}">
+                    <div class="compare-winner" v-if="item.winner === 1">
+                        Winner!
+                    </div>
+                    <div class="compare-item" v-html="item.phone1">                        
+                    </div>
+                </el-card>
+            </el-col>
+            <el-col :span="12">
+                <el-card class="box-card" v-bind:style="{ height: cardHeight + 'px'}">
+                    <div class="compare-winner" v-if="item.winner === 2">
+                        Winner!
+                    </div>
+                    <div class="compare-item">
+                        {{ item.phone2 }}
+                    </div>
+                </el-card>
+            </el-col>
+          </el-row>
           
       </div>
     </el-carousel-item>
@@ -21,46 +37,18 @@
 </template>
 
 <script>
+import Data from "../utils/data";
 
 export default {
   name: "Slide",
   data() {
       return {
+          interval: 8000,
           windowHeight: 0,
-          items: [
-          {
-              id: 1,
-              name: "camera",
-              phone1: "16mp",
-              phone2: "24mp",
-              status: 0,
-              winner: 2
-          },
-          {
-              id: 2,
-              name: "display",
-              phone1: "oled",
-              phone2: "lcd",
-              status: 0,
-              winner: 1
-          },
-          {
-              id: 3,
-              name: "network",
-              phone1: "4g",
-              phone2: "4g",
-              status: 1,
-              winner: 0
-          },
-          {
-              id: 4,
-              name: "cord",
-              phone1: "type c",
-              phone2: "micro usb",
-              status: 2,
-              winner: 0
-          }
-          ]
+          cardHeight: 0,
+          status:['','Tie!','Depends on your preference'],
+          button:['success','primary','warning','danger'],
+          items: Data
       }
   },
   components: {
@@ -69,15 +57,12 @@ export default {
   props: {
   },
   methods: {
-      test(){
-          alert(1);
-      }
   },
-  mounted() {
-      console.log(this.items);
+  mounted() {     
     this.$nextTick(() => {
       window.addEventListener('load', () => {
-        this.windowHeight = window.innerHeight
+        this.windowHeight = window.innerHeight - 300
+        this.cardHeight = this.windowHeight - 60
       });
     })
   },
@@ -85,20 +70,87 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.el-carousel__item h3 {
-    color: #475669;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
+<style lang="scss" scoped>
+.el-carousel {
+    overflow:visible;
+}
+.el-carousel__item {
+    background:#eee;
+    overflow:visible;
 }
 
-.el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
+.compare-container{
+    
+    padding:40px 20px 20px 20px;
+    position:relative;
 }
 
-.el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
+.compare-title{
+    position: absolute;
+    width: 100%;
+    top:-20px;
+    margin:0;
+    z-index: 99;
+    left:0;
+    
+    button{
+        font-weight:700;
+        font-size:26px;
+    }
 }
+
+.compare-container{
+
+    .el-card{
+        display:flex;
+        justify-content: center;
+        align-items:center;
+    }
+}
+
+.compare-item{
+    font-size:23px;
+}
+
+.compare-status{
+    position:absolute;
+    left: 50%;
+    top:50%;
+    width: 150px;
+    height: 100px;
+    margin-top:-50px;
+    margin-left:-75px;
+    align-items:center;
+    display:flex;
+    justify-content: center;
+    font-size: 19px;
+    background:#ff5714;
+    color:#fff;
+    font-weight:700;
+    border-radius:5px;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.5);
+    z-index:2;
+}
+
+.box-card{
+    position: relative;
+    z-index:0;
+    overflow:visible;
+}
+
+.compare-winner{
+    position:absolute;
+    top:0;
+    padding:20px;
+    background: #35d461;
+    width:100px;
+    color:#fff;
+    left:50%;
+    margin-left:-50px;
+    font-size:19px;
+    font-weight:700;
+    border-radius:5px;
+    margin-top:-33px;
+}
+
 </style>
