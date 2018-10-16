@@ -57,6 +57,8 @@ export default {
     height:350px;
     padding-top:20px;
     overflow:hidden;
+
+
 }
 
 .phone-item{

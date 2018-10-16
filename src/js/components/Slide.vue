@@ -24,8 +24,7 @@
                     <div class="compare-winner" v-if="item.winner === 2">
                         Winner!
                     </div>
-                    <div class="compare-item">
-                        {{ item.phone2 }}
+                    <div class="compare-item" v-html="item.phone2">                        
                     </div>
                 </el-card>
             </el-col>
@@ -75,7 +74,7 @@ export default {
     overflow:visible;
 }
 .el-carousel__item {
-    background:#eee;
+    background:#ddd;
     overflow:visible;
 }
 
