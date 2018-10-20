@@ -42,7 +42,7 @@ export default {
   name: "Slide",
   data() {
       return {
-          interval: 8000,
+          interval: 10000,
           windowHeight: 0,
           cardHeight: 0,
           status:['','Tie!','Depends on your preference'],
@@ -56,6 +56,9 @@ export default {
   props: {
   },
   methods: {
+     test(){
+         return 'test';
+     }
   },
   mounted() {     
     this.$nextTick(() => {
@@ -116,7 +119,8 @@ export default {
     left: 50%;
     top:50%;
     width: 150px;
-    height: 100px;
+    min-height: 40px;
+    padding:5px 0;
     margin-top:-50px;
     margin-left:-75px;
     align-items:center;
